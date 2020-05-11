@@ -3,8 +3,10 @@ package edu.miu.cs544.team6.service;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +32,18 @@ public class Notification {
 		System.out.println("working schedule: " + LocalDateTime.now());
 	}
 
+	@Async
 	public void sendMail(EmailNotification email) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("fromMail");
-		message.setTo("ochiroo13@gmail.com");
-		message.setSubject("Subje");
-		message.setText("this is content");
-		mailSender.send(message);
+		try {
+
+			message.setFrom("fromMail");
+			message.setTo("ochiroo13@gmail.com");
+			message.setSubject("Subje");
+			message.setText("this is content");
+			mailSender.send(message);
+		} catch (MailException me) {
+			System.out.println("email exception: " + me);
+		}
 	}
 }
