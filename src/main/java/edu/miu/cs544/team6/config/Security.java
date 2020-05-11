@@ -1,4 +1,4 @@
-package com.cs5446.tm.config;
+package edu.miu.cs544.team6.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

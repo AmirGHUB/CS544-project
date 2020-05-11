@@ -1,7 +1,7 @@
-package com.cs5446.tm.controller;
+package edu.miu.cs544.team6.controller;
 
-import com.cs5446.tm.model.Reservation;
-import com.cs5446.tm.service.ReservationService;
+import edu.miu.cs544.team6.domain.Reservation;
+import edu.miu.cs544.team6.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

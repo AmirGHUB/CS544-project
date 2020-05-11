@@ -1,4 +1,4 @@
-package com.cs5446.tm.controller;
+package edu.miu.cs544.team6.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

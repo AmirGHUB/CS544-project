@@ -1,4 +1,4 @@
-use cs544_project;
+use team6;
 
 
 INSERT INTO credentials(username,password,verifypassword,enabled) VALUES ('guest','$2a$10$0.ESlGysrPaiW5HaapKwoehzWt5AibgbPPOvMhDv8D6H26QQ/CwhS','$2a$10$0.ESlGysrPaiW5HaapKwoehzWt5AibgbPPOvMhDv8D6H26QQ/CwhS', TRUE);

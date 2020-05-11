@@ -1,8 +1,8 @@
-package com.cs5446.tm.service.impl;
+package edu.miu.cs544.team6.service.impl;
 
-import com.cs5446.tm.model.User;
-import com.cs5446.tm.repository.UserRepository;
-import com.cs5446.tm.service.UserService;
+import edu.miu.cs544.team6.domain.User;
+import edu.miu.cs544.team6.repository.UserRepository;
+import edu.miu.cs544.team6.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.cs5446.tm.config;
+package edu.miu.cs544.team6.config;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;

@@ -1,6 +1,6 @@
-package com.cs5446.tm.service;
+package edu.miu.cs544.team6.service;
 
-import com.cs5446.tm.model.User;
+import edu.miu.cs544.team6.domain.User;
 
 import java.util.List;
 

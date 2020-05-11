@@ -1,6 +1,6 @@
-package com.cs5446.tm.service;
+package edu.miu.cs544.team6.service;
 
-import com.cs5446.tm.model.Appointment;
+import edu.miu.cs544.team6.domain.Appointment;
 
 import java.util.List;
 

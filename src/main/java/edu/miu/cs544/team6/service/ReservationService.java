@@ -1,6 +1,6 @@
-package com.cs5446.tm.service;
+package edu.miu.cs544.team6.service;
 
-import com.cs5446.tm.model.Reservation;
+import edu.miu.cs544.team6.domain.Reservation;
 
 import java.util.List;
 

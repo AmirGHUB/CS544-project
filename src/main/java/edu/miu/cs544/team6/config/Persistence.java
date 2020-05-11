@@ -1,4 +1,4 @@
-package com.cs5446.tm.config;
+package edu.miu.cs544.team6.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +21,8 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.cs5446.tm.repository")
-@EnableJpaRepositories("com.cs5446.tm.repository")
+@ComponentScan("edu.miu.cs544.team6.repository")
+@EnableJpaRepositories("edu.miu.cs544.team6.repository")
 @PropertySource(value="classpath:application.properties")
 public class Persistence {
 

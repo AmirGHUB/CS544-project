@@ -10,11 +10,12 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
+    format-sql: false
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-#      ddl-auto: create
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
@@ -32,3 +33,8 @@ spring:
             enable: true
     protocol: smtp
     test-connection: false
+
+  spring:
+    thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
