@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:    
+  application:
+    name: sample-springdata-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/team6
+    username: team6
+    password: team6
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+#      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: ea544.team6@gmail.com
+    password: EA544_team6
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
