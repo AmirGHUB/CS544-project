@@ -16,10 +16,10 @@ public class EmailNotification {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 
 	@Column(name = "appointment_id")
-	private int appointmentId;
+	private Integer appointmentId;
 
 	private String subject;
 
@@ -35,19 +35,19 @@ public class EmailNotification {
 	@Column(name = "modified_datetime")
 	private Date modifiedDatetime;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getAppointmentId() {
+	public Integer getAppointmentId() {
 		return appointmentId;
 	}
 
-	public void setAppointmentId(int appointmentId) {
+	public void setAppointmentId(Integer appointmentId) {
 		this.appointmentId = appointmentId;
 	}
 
@@ -91,4 +91,9 @@ public class EmailNotification {
 		this.modifiedDatetime = modifiedDatetime;
 	}
 
+	@Override
+	public String toString() {
+		return "id: " + id + " appointmentId: " + appointmentId + " subject: " + subject + " content: " + content
+				+ " status: " + status;
+	}
 }

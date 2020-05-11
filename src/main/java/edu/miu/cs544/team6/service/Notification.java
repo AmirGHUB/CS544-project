@@ -1,6 +1,7 @@
 package edu.miu.cs544.team6.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -25,7 +26,11 @@ public class Notification {
 	@Scheduled(fixedDelayString = "${sync-job.delay.milliseconds.fixed}", initialDelayString = "${sync-job.delay.milliseconds.initial}")
 	public void checkNotification() {
 
-//		repository.findAll();
+		List<EmailNotification> lstEmail = repository.findByStatus("PENDING");
+
+		for (EmailNotification email : lstEmail) {
+			System.out.println(email.toString());
+		}
 
 		sendMail(null);
 
@@ -34,6 +39,7 @@ public class Notification {
 
 	@Async
 	public void sendMail(EmailNotification email) {
+		System.out.println("sending email");
 		SimpleMailMessage message = new SimpleMailMessage();
 		try {
 
