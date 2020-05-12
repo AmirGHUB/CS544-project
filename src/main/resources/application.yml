@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8085
 spring:    
   application:
     name: tm
@@ -8,9 +8,9 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:mysql://localhost/cs544
-    username: cs544
-    password: 201511
+    url: jdbc:mysql://localhost/cs544?serverTimezone=UTC
+    username: root
+    password: amirspring
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
