@@ -20,7 +20,7 @@ public class TmApplication {
 	public class MyController {
         @GetMapping("/")
         public String test() {
-            return "working";
+            return "it's working";
         }
     }
 
