@@ -39,8 +39,8 @@ public class UserController {
     }
     
     @PostMapping("/{userid}")
-    public User updateById(@PathVariable int userid, @RequestBody Map<String, String>password) {
-    	return userService.update(userid, password.get("password"));
+    public User updateById(@PathVariable int userid) {
+    	return userService.update(userid);
     }
     
     @DeleteMapping("/{userid}")
