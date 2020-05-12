@@ -1,12 +1,15 @@
-package com.cs5446.tm;
+package edu.miu.cs544.team6;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@EnableScheduling
+@EnableAsync
 public class TmApplication {
 
 	public static void main(String[] args) {
