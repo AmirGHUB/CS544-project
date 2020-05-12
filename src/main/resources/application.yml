@@ -1,5 +1,6 @@
 server:
   port: 8085
+
 spring:    
   application:
     name: tm
@@ -8,20 +9,21 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:mysql://localhost/team6?serverTimezone=UTC
-    username: team6
-    password: team6
-    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:postgresql://ec2-52-201-55-4.compute-1.amazonaws.com:5432/dbrgiocc8ks13a
+    username: exjpqiimmspqzn
+    password: 6ac47b8c60b3d7024543265421a03a36432f20acca51aa097c2670a4674e3e4d
+    platform: postgres
+    driverClassName: org.postgresql.Driver
   jpa:
-    show-sql: true
     hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-#      ddl-auto: create
+      ddl-auto: update
+    show-sql: true
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
