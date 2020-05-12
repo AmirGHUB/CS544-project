@@ -8,7 +8,7 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:mysql://localhost/team6
+    url: jdbc:mysql://localhost/team6?serverTimezone=UTC
     username: team6
     password: team6
     driverClassName: com.mysql.cj.jdbc.Driver
