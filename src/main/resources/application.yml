@@ -1,12 +1,16 @@
 server:
-  port: 8081
+  port: 8085
 spring:    
   application:
-    name: sample-springdata-service
+    name: tm
+  security:
+    user:
+      name: admin
+      password: admin
   datasource:
-    url: jdbc:mysql://localhost:3306/team6
-    username: team6
-    password: team6
+    url: jdbc:mysql://localhost/cs544?serverTimezone=UTC
+    username: root
+    password: amirspring
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
@@ -34,7 +38,8 @@ spring:
     protocol: smtp
     test-connection: false
 
-  spring:
-    thymeleaf:
-      prefix: classpath:/templates/
-      suffix: .html
+sync-job:
+  delay:
+    milliseconds:
+      fixed: 5000
+      initial: 5000

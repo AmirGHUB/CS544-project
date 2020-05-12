@@ -17,8 +17,5 @@ public class LoginController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getIndex(){
-        return "index";
-    }
+
 }

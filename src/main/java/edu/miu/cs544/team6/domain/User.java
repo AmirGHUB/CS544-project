@@ -1,77 +1,112 @@
 package edu.miu.cs544.team6.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = "USERS")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String gender;
 
-    @Column(name = "first_name", nullable = false, length = 50)
-    private String firstName;
+	@OneToMany(mappedBy = "consumer", cascade = CascadeType.ALL)
+	private List<Reservation> reservationList;
 
-    @Column(name = "last_name", nullable = false, length = 50)
-    private String lastName;
+	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+	private List<Appointment> appointmentList;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+	private List<UserRole> userRole;
 
-    @Column(name = "gender", nullable = false, length = 1)
-    private Character gender;
+	public User(String firstName, String lastName, String email, String gender) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+		
+		this.appointmentList = new ArrayList<>();
+		this.reservationList = new ArrayList<>();
+		this.userRole = new ArrayList<>();
+	}
 
-    @OneToOne
-    @JoinColumn(name = "username")
-    private Credentials credentials;
+	public User() {
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    private void setId(Integer id) {
-        this.id = id;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getGender() {
+		return gender;
+	}
 
-    public Character getGender() {
-        return gender;
-    }
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-    public void setGender(Character gender) {
-        this.gender = gender;
-    }
+	public List<Reservation> getReservationList() {
+		return Collections.unmodifiableList(reservationList);
+	}
 
-    public Credentials getCredentials() {
-        return credentials;
-    }
+	public void addReservation(Reservation reservation) {
+		reservation.setConsumer(this);
+		;
+		reservationList.add(reservation);
+	}
 
-    public void setCredentials(Credentials credentials) {
-        this.credentials = credentials;
-    }
+	public void removeReservation(Reservation reservation) {
+		reservation.setConsumer(null);
+		reservationList.remove(reservation);
+	}
+
+	public List<Appointment> getAppointmentList() {
+		return Collections.unmodifiableList(appointmentList);
+	}
+
+	public void addAppointment(Appointment appointment) {
+		appointment.setProvider(this);
+		appointmentList.add(appointment);
+	}
+
+	public void removeAppointment(Appointment appointment) {
+		appointment.setProvider(null);
+		appointmentList.remove(appointment);
+	}
+
 }
