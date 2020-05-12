@@ -23,6 +23,6 @@ stages:
     - task: DockerCompose@0
       displayName: Build an image
       inputs:
-        dockerComposeFile: docker-compose.yml
+        dockerComposeFile: docker-compose.yaml
         projectName: $(Build.Repository.Name)
         dockerComposeCommand: up
