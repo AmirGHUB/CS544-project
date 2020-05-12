@@ -32,3 +32,9 @@ spring:
             enable: true
     protocol: smtp
     test-connection: false
+
+sync-job:
+  delay:
+    milliseconds:
+      fixed: 5000
+      initial: 5000
