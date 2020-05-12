@@ -8,9 +8,9 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:mysql://localhost/cs544?serverTimezone=UTC
-    username: root
-    password: amirspring
+    url: jdbc:mysql://localhost/team6?serverTimezone=UTC
+    username: team6
+    password: team6
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true

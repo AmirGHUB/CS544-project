@@ -17,7 +17,7 @@ import edu.miu.cs544.team6.domain.User;
 import edu.miu.cs544.team6.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
