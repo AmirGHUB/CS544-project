@@ -1,10 +1,12 @@
 package edu.miu.cs544.team6.service;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,6 +22,9 @@ import edu.miu.cs544.team6.repository.ReservationRepository;
 
 @Service
 public class Notification {
+
+	@Value("${schedule.notification.reminder.minutes}")
+	private long reminderMinutesBeforeAppointment;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -37,7 +42,7 @@ public class Notification {
 
 		for (EmailNotification email : lstEmail) {
 			System.out.println(email.toString());
-			sendMail(null);
+			sendMail(email);
 		}
 
 		System.out.println("working schedule: " + LocalDateTime.now());
@@ -46,11 +51,17 @@ public class Notification {
 	@Scheduled(fixedDelayString = "${sync-job.delay.milliseconds.fixed}", initialDelayString = "${sync-job.delay.milliseconds.initial}")
 	public void schReminder() {
 
-		List<Reservation> lstReservation = reservRepo.findNewAcceptedReservations();
+		Calendar date = Calendar.getInstance();
+		long t = date.getTimeInMillis();
+		Date filterDate = new Date(t + (reminderMinutesBeforeAppointment * 60000));
+
+		List<Reservation> lstReservation = reservRepo.findNewAcceptedReservations(filterDate);
 
 		for (Reservation reserv : lstReservation) {
 			System.out.println(reserv.toString());
-			insertNotification(reserv);
+			insertReminderNotification(reserv);
+			reserv.setIsReminderSent(1);
+			reservRepo.save(reserv);
 		}
 
 		System.out.println("working schedule: " + LocalDateTime.now());
@@ -62,7 +73,7 @@ public class Notification {
 		SimpleMailMessage message = new SimpleMailMessage();
 		try {
 
-			message.setFrom("TM Appointment System");
+			message.setFrom("tm_life@miu.edu");
 			message.setTo(email.getRecipientEmail());
 			message.setSubject(email.getSubject());
 			message.setText(email.getContent());
@@ -75,8 +86,39 @@ public class Notification {
 			System.out.println("email exception: " + me);
 
 			email.setStatus(ENotificationStatus.FAILED);
+			email.setErrorDesc(me.getMessage());
 			updateNotification(email);
 		}
+	}
+
+	private void insertReminderNotification(Reservation reservation) {
+		// For student
+		EmailNotification emailNotif = new EmailNotification();
+		emailNotif.setReservation(reservation);
+		emailNotif.setAppointmentDatetime(reservation.getAppointment().getAppointmentDate());
+		emailNotif.setContent(String.format("Dear %s, Your appointment will start at %s",
+				reservation.getConsumer().getFirstName(), reservation.getReservationDate()));
+		emailNotif.setCreatedDatetime(new Date());
+		emailNotif.setRecipientEmail(reservation.getConsumer().getEmail());
+		emailNotif.setSentDatetime(null);
+		emailNotif.setStatus(ENotificationStatus.NEW);
+		emailNotif.setSubject(String.format("Appointment id: %s", reservation.getAppointment().getId()));
+		emailNotif.setReservation(reservation);
+		repository.save(emailNotif);
+
+		// For TA Checker
+		emailNotif = new EmailNotification();
+		emailNotif.setReservation(reservation);
+		emailNotif.setAppointmentDatetime(reservation.getAppointment().getAppointmentDate());
+		emailNotif.setContent(String.format("Dear %s, Your appointment will start at %s",
+				reservation.getAppointment().getProvider().getFirstName(), reservation.getReservationDate()));
+		emailNotif.setCreatedDatetime(new Date());
+		emailNotif.setRecipientEmail(reservation.getAppointment().getProvider().getEmail());
+		emailNotif.setSentDatetime(null);
+		emailNotif.setStatus(ENotificationStatus.NEW);
+		emailNotif.setSubject(String.format("Appointment id: %s", reservation.getAppointment().getId()));
+		emailNotif.setReservation(reservation);
+		repository.save(emailNotif);
 	}
 
 	@Async

@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -27,18 +29,21 @@ public class User {
 	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
 	private List<Appointment> appointmentList;
 
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-	private List<UserRole> userRole;
+	@OneToMany
+	@JoinTable(name = "User_Role", 
+			joinColumns = { @JoinColumn(name = "user_id") }, 
+			inverseJoinColumns = {@JoinColumn(name = "role_id") })
+	private List<Role> role;
 
 	public User(String firstName, String lastName, String email, String gender) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.gender = gender;
-		
+
 		this.appointmentList = new ArrayList<>();
 		this.reservationList = new ArrayList<>();
-		this.userRole = new ArrayList<>();
+		this.role = new ArrayList<>();
 	}
 
 	public User() {
