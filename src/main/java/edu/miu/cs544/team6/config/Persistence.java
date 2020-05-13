@@ -1,6 +1,7 @@
 package edu.miu.cs544.team6.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -23,19 +25,18 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("edu.miu.cs544.team6.repository")
 @EnableJpaRepositories("edu.miu.cs544.team6.repository")
-@PropertySource(value="classpath:application.properties")
+@PropertySource(value="classpath:application.yml")
 public class Persistence {
-
-	@Autowired
-	Environment environment;
+    @Resource
+    public Environment environment;
 
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getProperty("jdbc.url"));
-        dataSource.setUsername(environment.getProperty("jdbc.username"));
-        dataSource.setPassword(environment.getProperty("jdbc.password"));
+        dataSource.setDriverClassName(environment.getProperty("spring.datasource.driverClassName"));
+        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
+        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
+        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
         return dataSource;
     }
 
@@ -54,13 +55,13 @@ public class Persistence {
     private Properties getJpaProperties() {
         return new Properties() {
             {
-                setProperty("hibernate.hbm2ddl.auto",environment.getProperty("hibernate.hbm2ddl.auto"));
+                setProperty("spring.jpa.hibernate.hbm2ddl.auto",environment.getProperty("spring.jpa.hibernate.hbm2ddl.auto"));
 //                setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("create.sql"));
 //                setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("import.sql"));
 //                setProperty("hibernate.hbm2ddl.import_files", "classpath:populate.sql");
-                setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-                setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-                setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
+                setProperty("spring.jpa.properties.hibernate.dialect", environment.getProperty("spring.jpa.properties.hibernate.dialect"));
+                setProperty("spring.jpa.show-sql", environment.getProperty("spring.jpa.show-sql"));
+                setProperty("spring.jpa.format-sql", environment.getProperty("spring.jpa.format-sql"));
            }
         };
     }
