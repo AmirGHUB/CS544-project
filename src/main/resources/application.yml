@@ -1,6 +1,9 @@
 server:
   port: 8085
 
+entityManager:
+  domain: edu.miu.cs544.team6.domain
+
 spring:    
   application:
     name: tm
@@ -17,7 +20,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      hbm2ddl:
+        auto: update
     show-sql: true
+    format-sql: false
     naming:
       physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

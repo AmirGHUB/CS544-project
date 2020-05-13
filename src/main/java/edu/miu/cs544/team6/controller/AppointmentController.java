@@ -1,6 +1,5 @@
 package edu.miu.cs544.team6.controller;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -46,5 +45,4 @@ public class AppointmentController {
     	appointmentService.delete(appointmentId);
     }
 	
-
 }
