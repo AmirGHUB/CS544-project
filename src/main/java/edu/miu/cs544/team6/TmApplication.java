@@ -1,7 +1,9 @@
 package edu.miu.cs544.team6;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,17 @@ public class TmApplication {
 
 	@RestController
 	public class MyController {
-        @GetMapping("/")
-        public String test() {
-            return "it's working";
-        }
-    }
+		@GetMapping("/")
+		public String test() {
+			return "it's working";
+		}
+	}
+
+	// for DTO
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
+
 
 }
