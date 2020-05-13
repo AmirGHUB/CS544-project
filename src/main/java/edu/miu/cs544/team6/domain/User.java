@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
+@Table(name="USERS")
 public class User {
 
 	@Id
@@ -113,5 +114,4 @@ public class User {
 		appointment.setProvider(null);
 		appointmentList.remove(appointment);
 	}
-
 }
