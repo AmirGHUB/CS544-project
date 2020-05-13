@@ -2,6 +2,7 @@ package edu.miu.cs544.team6.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,23 +25,27 @@ public class Reservation {
 	@Enumerated(EnumType.STRING)
 	private ReservationStatus status;
 
-	@ManyToOne 
+	@ManyToOne
 	private User consumer;
 
 	@ManyToOne
 	private Appointment appointment;
-	
+
+	@Column(name = "is_reminder_sent")
+	private Integer isReminderSent;
+
 	public Reservation(Date reservationDate, ReservationStatus status) {
 		this.reservationDate = reservationDate;
 		this.status = status;
 	}
 
-	public Reservation() {}
+	public Reservation() {
+		isReminderSent = 0;
+	}
 
 	public int getId() {
 		return id;
 	}
-
 
 	public Date getReservationDate() {
 		return reservationDate;
@@ -74,7 +79,12 @@ public class Reservation {
 		this.appointment = appointment;
 	}
 
+	public Integer getIsReminderSent() {
+		return isReminderSent;
+	}
 
-
+	public void setIsReminderSent(Integer isReminderSent) {
+		this.isReminderSent = isReminderSent;
+	}
 
 }
