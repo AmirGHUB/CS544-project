@@ -1,4 +1,4 @@
-package com.cs5446.tm;
+package edu.miu.cs544.team6;
 
 import edu.miu.cs544.team6.TmApplication;
 import org.junit.jupiter.api.Test;
