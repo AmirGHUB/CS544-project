@@ -19,12 +19,12 @@ public class TmApplication {
 		SpringApplication.run(TmApplication.class, args);
 	}
 
-	@RestController
-	public class MyController {
-        @GetMapping("/")
-        public String test() {
-            return "it's working";
-        }
-    }
+//	@RestController
+//	public class MyController {
+//        @GetMapping("/")
+//        public String test() {
+//            return "it's working";
+//        }
+//    }
 
 }

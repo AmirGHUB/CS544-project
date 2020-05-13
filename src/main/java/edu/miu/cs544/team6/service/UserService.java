@@ -2,6 +2,8 @@ package edu.miu.cs544.team6.service;
 
 import java.util.List;
 
+
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +12,18 @@ import org.springframework.stereotype.Service;
 import edu.miu.cs544.team6.domain.User;
 import edu.miu.cs544.team6.repository.UserRepository;
 
+
+
 @Service
 public class UserService {
 	
 	@Autowired
 	UserRepository userRepository;
+
 	
 	public void save(User user) {
-		
-		userRepository.save(user);
+			
+	    userRepository.save(user);
 	}
 	
 	public List<User> findAll(){
@@ -31,11 +36,12 @@ public class UserService {
 	}
 	
 	public User update(int userId) {
-		User oldUser = findById(userId);
-    	if(oldUser == null){
+		User existingUser = findById(userId);
+    	if(existingUser == null){
     		return null;
     	}
-    	return userRepository.save(oldUser);
+    	existingUser.setId(userId);
+    	return userRepository.save(existingUser);
 	}
 	
 	public void delete(int userId) {
