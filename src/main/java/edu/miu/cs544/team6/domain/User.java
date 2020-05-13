@@ -1,25 +1,35 @@
 package edu.miu.cs544.team6.domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Users_Tm")
 public class User {
 
 	@Id
 	@GeneratedValue
 	private int id;
+
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String gender;
+	
+
 
 	@OneToMany(mappedBy = "consumer", cascade = CascadeType.ALL)
 	private List<Reservation> reservationList;
@@ -27,19 +37,33 @@ public class User {
 	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
 	private List<Appointment> appointmentList;
 
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-	private List<UserRole> userRole;
+	@Enumerated(EnumType.STRING)
+	private UserRoleE userRole;
 
-	public User(String firstName, String lastName, String email, String gender) {
+	public UserRoleE getUserRole() {
+		return userRole;
+	}
+
+
+	public void setUserRole(UserRoleE userRole) {
+		this.userRole = userRole;
+	}
+
+
+	public User(String firstName, String lastName, String email, String gender, UserRoleE role ) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.gender = gender;
-		
-		this.appointmentList = new ArrayList<>();
-		this.reservationList = new ArrayList<>();
-		this.userRole = new ArrayList<>();
+		this.userRole = role;
 	}
+	
+	
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public User() {
 	}

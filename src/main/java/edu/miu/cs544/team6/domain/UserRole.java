@@ -17,10 +17,10 @@ public class UserRole {
 	
 	private String userRole;
 	
-	public UserRole(User userId, String userRole) {
-		this.userId = userId;
-		this.userRole = userRole;
-	}
+//	public UserRole(User userId, String userRole) {
+//		this.userId = userId;
+//		this.userRole = userRole;
+//	}
 	
 	public UserRole() {}
 
