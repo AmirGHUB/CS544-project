@@ -1,6 +1,5 @@
 package edu.miu.cs544.team6.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,9 @@ import edu.miu.cs544.team6.service.UserService;
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired
-    UserService userService;
-	
-    
+    @Autowired
+    private UserService userService;
+
     @PostMapping()
     public void createUser(@RequestBody User user) {
     	userService.save(user);
@@ -50,6 +48,5 @@ public class UserController {
     public void deleteUser(@PathVariable int userid) {
     	userService.delete(userid);
     }
-    
-    
+
 }

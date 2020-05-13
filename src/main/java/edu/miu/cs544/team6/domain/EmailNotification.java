@@ -42,6 +42,9 @@ public class EmailNotification {
 	@Enumerated(EnumType.STRING)
 	private ENotificationStatus status;
 
+	@Column(name = "error_desc")
+	private String errorDesc;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "created_datetime")
 	private Date createdDatetime;
@@ -104,6 +107,14 @@ public class EmailNotification {
 
 	public ENotificationStatus getStatus() {
 		return status;
+	}
+
+	public String getErrorDesc() {
+		return errorDesc;
+	}
+
+	public void setErrorDesc(String errorDesc) {
+		this.errorDesc = errorDesc;
 	}
 
 	public void setStatus(ENotificationStatus status) {
