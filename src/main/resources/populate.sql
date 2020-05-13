@@ -9,8 +9,8 @@ INSERT INTO authorities (ID,username, authority) VALUES (2,'admin', 'ROLE_ADMIN'
 INSERT INTO authorities (ID,username, authority) VALUES (3,'admin', 'ROLE_USER');
 
 
-INSERT INTO `users` VALUES (1,'cg@gmail.com','Curious','M','George',"guest");
-INSERT INTO `users` VALUES (2,'BigAl@gmail.com','Allen','M','Rench',"admin");
+INSERT INTO `users` VALUES (1,'cg@gmail.com','Curious','M','George',"CHECKER");
+INSERT INTO `users` VALUES (2,'BigAl@gmail.com','Allen','M','Rench',"ADMIN");
 
 
 SET sql_safe_updates = 0;

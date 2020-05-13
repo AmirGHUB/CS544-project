@@ -12,24 +12,23 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:postgresql://ec2-52-201-55-4.compute-1.amazonaws.com:5432/dbrgiocc8ks13a
-    username: exjpqiimmspqzn
-    password: 6ac47b8c60b3d7024543265421a03a36432f20acca51aa097c2670a4674e3e4d
-    platform: postgres
-    driverClassName: org.postgresql.Driver
+    url: jdbc:mysql://localhost:3306/team6?useSSL=false
+    username: team6
+    password: team6
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
-      hbm2ddl:
-        auto: update
+      ddl-auto: create-drop
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
     show-sql: true
-    format-sql: false
-    naming:
-      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+
+
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQL5Dialect
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com

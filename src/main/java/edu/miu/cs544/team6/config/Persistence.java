@@ -33,10 +33,10 @@
 //    @Bean(name = "dataSource")
 //    public DataSource dataSource() {
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(environment.getProperty("spring.datasource.driverClassName"));
-//        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
-//        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
-//        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
+//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/team6?useSSL=false");
+//        dataSource.setUsername("team6");
+//        dataSource.setPassword("team6");
 //        return dataSource;
 //    }
 //
@@ -44,7 +44,7 @@
 //    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
 //        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 //        factoryBean.setDataSource(dataSource());
-//        factoryBean.setPackagesToScan(new String[] { environment.getProperty("entityManager.domain") });
+//        factoryBean.setPackagesToScan(new String[] { "edu.miu.cs544.team6.domain" });
 //        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 //        vendorAdapter.setShowSql(true);
 //        factoryBean.setJpaVendorAdapter(vendorAdapter);
@@ -55,13 +55,13 @@
 //    private Properties getJpaProperties() {
 //        return new Properties() {
 //            {
-//                setProperty("spring.jpa.hibernate.hbm2ddl.auto",environment.getProperty("spring.jpa.hibernate.hbm2ddl.auto"));
+//                setProperty("spring.jpa.hibernate.hbm2ddl.auto","create");
 ////                setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("create.sql"));
 ////                setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("import.sql"));
 //                setProperty("hibernate.hbm2ddl.import_files", "classpath:populate.sql");
-//                setProperty("spring.jpa.properties.hibernate.dialect", environment.getProperty("spring.jpa.properties.hibernate.dialect"));
-//                setProperty("spring.jpa.show-sql", environment.getProperty("spring.jpa.show-sql"));
-//                setProperty("spring.jpa.format-sql", environment.getProperty("spring.jpa.format-sql"));
+//                setProperty("spring.jpa.properties.hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+//                setProperty("spring.jpa.show-sql", "true");
+//                setProperty("spring.jpa.format-sql", "false");
 //           }
 //        };
 //    }
