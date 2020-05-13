@@ -30,7 +30,7 @@ public class UserService {
 		return user.isPresent() ? user.get(): null; 
 	}
 	
-	public User update(int userId, String password) {
+	public User update(int userId) {
 		User oldUser = findById(userId);
     	if(oldUser == null){
     		return null;

@@ -16,7 +16,7 @@ import edu.miu.cs544.team6.domain.User;
 import edu.miu.cs544.team6.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -37,8 +37,8 @@ public class UserController {
     }
     
     @PostMapping("/{userid}")
-    public User updateById(@PathVariable int userid, @RequestBody Map<String, String>password) {
-    	return userService.update(userid, password.get("password"));
+    public User updateById(@PathVariable int userid) {
+    	return userService.update(userid);
     }
     
     @DeleteMapping("/{userid}")
