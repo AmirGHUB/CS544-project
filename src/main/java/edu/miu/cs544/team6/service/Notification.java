@@ -16,6 +16,7 @@ import edu.miu.cs544.team6.domain.EmailNotification;
 import edu.miu.cs544.team6.domain.Reservation;
 import edu.miu.cs544.team6.enums.ENotificationStatus;
 import edu.miu.cs544.team6.repository.NotificationRepository;
+import edu.miu.cs544.team6.repository.ReservationRepository;
 
 @Service
 public class Notification {
@@ -25,6 +26,9 @@ public class Notification {
 
 	@Autowired
 	private NotificationRepository repository;
+
+	@Autowired
+	private ReservationRepository reservRepo;
 
 	@Scheduled(fixedDelayString = "${sync-job.delay.milliseconds.fixed}", initialDelayString = "${sync-job.delay.milliseconds.initial}")
 	public void schSendEmail() {
@@ -42,11 +46,11 @@ public class Notification {
 	@Scheduled(fixedDelayString = "${sync-job.delay.milliseconds.fixed}", initialDelayString = "${sync-job.delay.milliseconds.initial}")
 	public void schReminder() {
 
-		List<EmailNotification> lstEmail = repository.findByStatus(ENotificationStatus.NEW);
+		List<Reservation> lstReservation = reservRepo.findNewAcceptedReservations();
 
-		for (EmailNotification email : lstEmail) {
-			System.out.println(email.toString());
-			sendMail(null);
+		for (Reservation reserv : lstReservation) {
+			System.out.println(reserv.toString());
+			insertNotification(reserv);
 		}
 
 		System.out.println("working schedule: " + LocalDateTime.now());
