@@ -13,6 +13,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.miu.cs544.team6.domain.EmailNotification;
 import edu.miu.cs544.team6.domain.Reservation;
@@ -122,19 +124,24 @@ public class Notification {
 	}
 
 	@Async
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void insertNotification(Reservation reservation) {
-		EmailNotification emailNotif = new EmailNotification();
-		emailNotif.setReservation(reservation);
-		emailNotif.setAppointmentDatetime(reservation.getAppointment().getAppointmentDate());
-		emailNotif.setContent(String.format("Dear %s, Your reservation number %s is %s",
-				reservation.getConsumer().getFirstName(), reservation.getId(), reservation.getStatus()));
-		emailNotif.setCreatedDatetime(new Date());
-		emailNotif.setRecipientEmail(reservation.getConsumer().getEmail());
-		emailNotif.setSentDatetime(null);
-		emailNotif.setStatus(ENotificationStatus.NEW);
-		emailNotif.setSubject(String.format("Decision about reservation id: %s", reservation.getId()));
-		emailNotif.setReservation(reservation);
-		repository.save(emailNotif);
+		try {
+			EmailNotification emailNotif = new EmailNotification();
+			emailNotif.setReservation(reservation);
+			emailNotif.setAppointmentDatetime(reservation.getAppointment().getAppointmentDate());
+			emailNotif.setContent(String.format("Dear %s, Your reservation number %s is %s",
+					reservation.getConsumer().getFirstName(), reservation.getId(), reservation.getStatus()));
+			emailNotif.setCreatedDatetime(new Date());
+			emailNotif.setRecipientEmail(reservation.getConsumer().getEmail());
+			emailNotif.setSentDatetime(null);
+			emailNotif.setStatus(ENotificationStatus.NEW);
+			emailNotif.setSubject(String.format("Decision about reservation id: %s", reservation.getId()));
+			emailNotif.setReservation(reservation);
+			repository.save(emailNotif);
+		} catch (Exception e) {
+			System.out.println("exception on Notification.insertNotification: " + e.getMessage());
+		}
 	}
 
 	public void updateNotification(EmailNotification emailNotif) {
