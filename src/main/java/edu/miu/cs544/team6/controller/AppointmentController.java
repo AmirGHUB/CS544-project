@@ -2,7 +2,6 @@ package edu.miu.cs544.team6.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,7 @@ import edu.miu.cs544.team6.domain.Appointment;
 import edu.miu.cs544.team6.service.AppointmentService;
 
 
+
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
@@ -28,7 +28,8 @@ public class AppointmentController {
 	public void save(@RequestBody Appointment appointment) {
 		appointmentService.saveAppointment(appointment);
 	}
-		
+	
+	
 	@PutMapping("/{appointmentId}")
 	public Appointment update(@PathVariable int appointmentId, @RequestBody Appointment appointment) {
 		Appointment a = appointmentService.findById(appointmentId);
