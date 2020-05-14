@@ -4,32 +4,26 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Users_Tm")
+@Table(name = "Users_Tm")
 public class User {
 
 	@Id
 	@GeneratedValue
 	private int id;
 
-
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String gender;
-	
-
 
 	@OneToMany(mappedBy = "consumer", cascade = CascadeType.ALL)
 	private List<Reservation> reservationList;
@@ -44,26 +38,21 @@ public class User {
 		return userRole;
 	}
 
-
 	public void setUserRole(UserRoleE userRole) {
 		this.userRole = userRole;
 	}
 
-
-	public User(String firstName, String lastName, String email, String gender, UserRoleE role ) {
+	public User(String firstName, String lastName, String email, String gender, UserRoleE role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.gender = gender;
 		this.userRole = role;
 	}
-	
-	
 
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public User() {
 	}
@@ -105,32 +94,26 @@ public class User {
 	}
 
 	public List<Reservation> getReservationList() {
-		return Collections.unmodifiableList(reservationList);
+		return reservationList;
 	}
 
-	public void addReservation(Reservation reservation) {
-		reservation.setConsumer(this);
-		;
-		reservationList.add(reservation);
-	}
-
-	public void removeReservation(Reservation reservation) {
-		reservation.setConsumer(null);
-		reservationList.remove(reservation);
+	public void setReservationList(List<Reservation> reservationList) {
+		this.reservationList = reservationList;
 	}
 
 	public List<Appointment> getAppointmentList() {
-		return Collections.unmodifiableList(appointmentList);
+		return appointmentList;
 	}
 
-	public void addAppointment(Appointment appointment) {
-		appointment.setProvider(this);
-		appointmentList.add(appointment);
+	public void setAppointmentList(List<Appointment> appointmentList) {
+		this.appointmentList = appointmentList;
 	}
 
-	public void removeAppointment(Appointment appointment) {
-		appointment.setProvider(null);
-		appointmentList.remove(appointment);
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender
+				+ ", reservationList=" + reservationList + ", appointmentList=" + appointmentList + ", userRole="
+				+ userRole + "]";
 	}
 
 }

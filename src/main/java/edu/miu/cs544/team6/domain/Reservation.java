@@ -2,6 +2,7 @@ package edu.miu.cs544.team6.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Reservation {
@@ -24,23 +26,36 @@ public class Reservation {
 	@Enumerated(EnumType.STRING)
 	private ReservationStatus status;
 
-	@ManyToOne 
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User consumer;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Appointment appointment;
-	
-	public Reservation(Date reservationDate, ReservationStatus status) {
+
+	@Transient
+	private Integer userId;
+
+	@Transient
+	private Integer appointmentId;
+
+	public Reservation(Date reservationDate, Integer userId, Integer appointmentId) {
 		this.reservationDate = reservationDate;
-		this.status = status;
+		this.userId = userId;
+		this.appointmentId = appointmentId;
+		
+		this.status = ReservationStatus.PENDING;
 	}
 
-	public Reservation() {}
+	public Reservation() {
+	}
 
 	public int getId() {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public Date getReservationDate() {
 		return reservationDate;
@@ -74,7 +89,25 @@ public class Reservation {
 		this.appointment = appointment;
 	}
 
+	public Integer getUserId() {
+		return userId;
+	}
 
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
+	public Integer getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", reservationDate=" + reservationDate + ", status=" + status + "]";
+	}
 
 }
