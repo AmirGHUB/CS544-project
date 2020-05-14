@@ -17,48 +17,46 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.miu.cs544.team6.domain.Reservation;
 import edu.miu.cs544.team6.service.ReservationService;
 
-
 @RestController
 @RequestMapping("/reservations")
 public class ReservationController {
-	
+
 	@Autowired
 	ReservationService reservationService;
-	
-   @PostMapping()
-   public void createResevation(@RequestBody Reservation reservation) {
-  	reservationService.save(reservation);
- }
-    
-    @GetMapping()
-    public List<Reservation> getReservations(){
-    	return reservationService.findAll();
-    }
-    
-    @GetMapping("/{reservationId}")
-    public Reservation getReservationById(@PathVariable int reservationId) {
-    	return reservationService.findById(reservationId);
-    }
-    
-    @PutMapping("/{reservationId}")
 
-    public Reservation updateById(@PathVariable int reservationId, @RequestBody Reservation reservation) {
+	@PostMapping()
+	public void createResevation(@RequestBody Reservation reservation) {
+		reservationService.save(reservation);
+	}
 
-    Reservation reservation1 = reservationService.findById(reservationId);
+	@GetMapping()
+	public List<Reservation> getReservations() {
+		return reservationService.findAll();
+	}
 
-    if (reservation1 == null)
+	@GetMapping("/{reservationId}")
+	public Reservation getReservationById(@PathVariable int reservationId) {
+		return reservationService.findById(reservationId);
+	}
 
-    return null;
+	@PutMapping("/{reservationId}")
+	public Reservation updateById(@PathVariable int reservationId, @RequestBody Reservation reservation) {
 
-    reservation.setId(reservationId);
+		Reservation reservation1 = reservationService.findById(reservationId);
 
-    return reservationService.update(reservation);
+		if (reservation1 == null)
 
-    }
-    
-    @DeleteMapping("/{reservationId}")
-    public void deleteReservation(@PathVariable int reservationId) {
-    	reservationService.delete(reservationId);
-    }
+			return null;
+
+		reservation.setId(reservationId);
+
+		return reservationService.update(reservation);
+
+	}
+
+	@DeleteMapping("/{reservationId}")
+	public void deleteReservation(@PathVariable int reservationId) {
+		reservationService.delete(reservationId);
+	}
 
 }

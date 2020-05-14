@@ -47,7 +47,7 @@ public class Notification {
 			sendMail(email);
 		}
 
-		System.out.println("working schedule: " + LocalDateTime.now());
+		System.out.println("working schedule schSendEmail: " + LocalDateTime.now());
 	}
 
 	@Scheduled(fixedDelayString = "${sync-job.delay.milliseconds.fixed}", initialDelayString = "${sync-job.delay.milliseconds.initial}")
@@ -66,15 +66,15 @@ public class Notification {
 			reservRepo.save(reserv);
 		}
 
-		System.out.println("working schedule: " + LocalDateTime.now());
+		System.out.println("working schedule schReminder: " + LocalDateTime.now());
 	}
 
 	@Async
 	public void sendMail(EmailNotification email) {
-		System.out.println("sending email");
 		SimpleMailMessage message = new SimpleMailMessage();
 		try {
 
+			System.out.println("sending email to " + email.getContent());
 			message.setFrom("tm_life@miu.edu");
 			message.setTo(email.getRecipientEmail());
 			message.setSubject(email.getSubject());

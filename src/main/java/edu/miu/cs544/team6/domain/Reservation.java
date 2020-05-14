@@ -29,17 +29,17 @@ public class Reservation {
 
 	@Enumerated(EnumType.STRING)
 	private ReservationStatus status;
-	
+
 	@Column(name = "is_reminder_sent")
-	 private Integer isReminderSent;
+	private Integer isReminderSent;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value="reservation")
+	@JsonIgnoreProperties(value = "reservation")
 	private User consumer;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonProperty("appointment")
-	@JsonIgnoreProperties(value="reservation")
+	@JsonIgnoreProperties(value = "reservation")
 	private Appointment appointment;
 
 	@Transient
@@ -52,7 +52,7 @@ public class Reservation {
 		this.reservationDate = reservationDate;
 		this.userId = userId;
 		this.appointmentId = appointmentId;
-		
+		this.isReminderSent = 0;
 		this.status = ReservationStatus.PENDING;
 	}
 
@@ -114,22 +114,18 @@ public class Reservation {
 	public void setAppointmentId(Integer appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-	
+
 	public Integer getIsReminderSent() {
 
-	return isReminderSent;
+		return isReminderSent;
 
 	}
-
-
 
 	public void setIsReminderSent(Integer isReminderSent) {
 
-	this.isReminderSent = isReminderSent;
+		this.isReminderSent = isReminderSent;
 
 	}
-
-
 
 	@Override
 	public String toString() {

@@ -28,15 +28,6 @@ public class User {
 	private String email;
 	private String gender;
 
-	@OneToMany(mappedBy = "consumer", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value="user")
-	private List<Reservation> reservationList;
-
-	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
-	@JsonProperty("appointment")
-	@JsonIgnoreProperties(value="user")
-	private List<Appointment> appointmentList;
-
 	@Enumerated(EnumType.STRING)
 	private UserRoleE userRole;
 
@@ -99,27 +90,10 @@ public class User {
 		this.gender = gender;
 	}
 
-	public List<Reservation> getReservationList() {
-		return reservationList;
-	}
-
-	public void setReservationList(List<Reservation> reservationList) {
-		this.reservationList = reservationList;
-	}
-
-	public List<Appointment> getAppointmentList() {
-		return appointmentList;
-	}
-
-	public void setAppointmentList(List<Appointment> appointmentList) {
-		this.appointmentList = appointmentList;
-	}
-
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender
-				+ ", reservationList=" + reservationList + ", appointmentList=" + appointmentList + ", userRole="
-				+ userRole + "]";
+				+ " userRole=" + userRole + "]";
 	}
 
 }
