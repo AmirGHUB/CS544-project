@@ -1,10 +1,10 @@
 package edu.miu.cs544.team6.domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,15 +25,19 @@ public class Appointment {
 	
 	private String location;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User provider;
 	
-	@OneToMany (mappedBy = "appointment")
+	@OneToMany (mappedBy = "appointment", cascade = CascadeType.ALL)
 	private List<Reservation> reservationList;
+	
 
-	public Appointment(Date appointmentDate, String location) {
+	Integer userId;
+
+	public Appointment(Date appointmentDate, String location, Integer userId) {
 		this.appointmentDate = appointmentDate;
 		this.location = location;
+		this.userId = userId;
 		this.reservationList = new ArrayList<>();
 	}
 
@@ -71,8 +75,16 @@ public class Appointment {
 		this.provider = provider;
 	}
 
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	public List<Reservation> getReservationList() {
-		return Collections.unmodifiableList(reservationList);
+		return reservationList;
 	}
 
 	public void addReservation(Reservation reservation) {
@@ -83,6 +95,12 @@ public class Appointment {
 	public void removeReservation(Reservation reservation) {
 		reservation.setAppointment(null);
 		reservationList.remove(reservation);
+	}
+
+	@Override
+	public String toString() {
+		return "Appointment [id=" + id + ", appointmentDate=" + appointmentDate + ", location=" + location
+				+ ", reservationList=" + reservationList + "]";
 	}
 
 	
