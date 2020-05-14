@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "Users_Tm")
 public class User {
@@ -26,9 +29,12 @@ public class User {
 	private String gender;
 
 	@OneToMany(mappedBy = "consumer", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value="user")
 	private List<Reservation> reservationList;
 
 	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+	@JsonProperty("appointment")
+	@JsonIgnoreProperties(value="user")
 	private List<Appointment> appointmentList;
 
 	@Enumerated(EnumType.STRING)

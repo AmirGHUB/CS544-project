@@ -70,7 +70,8 @@ public class Security extends WebSecurityConfigurerAdapter
 //					.antMatchers("*/appointment/**").authenticated()
 					.antMatchers("/users").hasRole("ADMIN")
 					.and()
-					.httpBasic();
+					.httpBasic()
+					.and().csrf().disable();
 		}
 //FOR DB USER AUTH
 //     @Override

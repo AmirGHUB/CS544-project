@@ -14,6 +14,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Reservation {
 
@@ -31,9 +34,12 @@ public class Reservation {
 	 private Integer isReminderSent;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value="reservation")
 	private User consumer;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonProperty("appointment")
+	@JsonIgnoreProperties(value="reservation")
 	private Appointment appointment;
 
 	@Transient
