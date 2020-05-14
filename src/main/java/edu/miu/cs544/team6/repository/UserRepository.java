@@ -11,5 +11,5 @@ import edu.miu.cs544.team6.domain.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-
+    User findUserByEmailEquals(String email);
 }

@@ -28,8 +28,7 @@ public class AppointmentController {
 	public void save(@RequestBody Appointment appointment) {
 		appointmentService.saveAppointment(appointment);
 	}
-	
-	
+		
 	@PutMapping("/{appointmentId}")
 	public Appointment update(@PathVariable int appointmentId, @RequestBody Appointment appointment) {
 		Appointment a = appointmentService.findById(appointmentId);
