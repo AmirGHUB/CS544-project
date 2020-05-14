@@ -26,27 +26,39 @@ public class Reservation {
 
 	@Enumerated(EnumType.STRING)
 	private ReservationStatus status;
+	
+	@Column(name = "is_reminder_sent")
+	 private Integer isReminderSent;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User consumer;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Appointment appointment;
 
-	@Column(name = "is_reminder_sent")
-	private Integer isReminderSent;
+	@Transient
+	private Integer userId;
 
-	public Reservation(Date reservationDate, ReservationStatus status) {
+	@Transient
+	private Integer appointmentId;
+
+	public Reservation(Date reservationDate, Integer userId, Integer appointmentId) {
 		this.reservationDate = reservationDate;
-		this.status = status;
+		this.userId = userId;
+		this.appointmentId = appointmentId;
+		
+		this.status = ReservationStatus.PENDING;
 	}
 
 	public Reservation() {
-		isReminderSent = 0;
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Date getReservationDate() {
@@ -81,12 +93,41 @@ public class Reservation {
 		this.appointment = appointment;
 	}
 
-	public Integer getIsReminderSent() {
-		return isReminderSent;
+	public Integer getUserId() {
+		return userId;
 	}
 
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+	
+	public Integer getIsReminderSent() {
+
+	return isReminderSent;
+
+	}
+
+
+
 	public void setIsReminderSent(Integer isReminderSent) {
-		this.isReminderSent = isReminderSent;
+
+	this.isReminderSent = isReminderSent;
+
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", reservationDate=" + reservationDate + ", status=" + status + "]";
 	}
 
 }

@@ -2,7 +2,6 @@ package edu.miu.cs544.team6.controller;
 
 import java.util.List;
 
-
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.miu.cs544.team6.domain.Reservation;
 import edu.miu.cs544.team6.service.ReservationService;
-
-
 
 
 @RestController
