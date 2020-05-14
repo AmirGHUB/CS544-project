@@ -12,10 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
+@JsonIgnoreProperties(value= {"provider","reservationList"})
 public class Appointment {
-
+	
 	@Id
 	@GeneratedValue
 	private int id;
@@ -26,12 +31,14 @@ public class Appointment {
 	private String location;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonProperty("provider")
 	private User provider;
 	
 	@OneToMany (mappedBy = "appointment", cascade = CascadeType.ALL)
+	@JsonProperty(value="reservationList")
 	private List<Reservation> reservationList;
 	
-
+	
 	Integer userId;
 
 	public Appointment(Date appointmentDate, String location, Integer userId) {
